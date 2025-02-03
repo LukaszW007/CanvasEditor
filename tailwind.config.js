@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const { fontFamily } = require("tailwindcss/defaultTheme");
+// const colors = require("tailwindcss/colors");
 
 module.exports = {
 	content: ["./src/**/*.{js,jsx,ts,tsx}"],
@@ -26,18 +27,22 @@ module.exports = {
 					97: "#f7f7f8",
 				},
 			},
-			fontSize: {
+			fontSize: (theme) => ({
 				button: "15px",
 				display: "32px",
 				body: "18px",
-			},
-			fontWeight: {
+			}),
+			fontWeight: (theme) => ({
 				normal: 400,
 				medium: 500,
 				semibold: 600,
 				bold: 700,
-			},
+			}),
 		},
 	},
-	plugins: [],
+
+	variants: {
+		extend: {},
+	},
+	plugins: [require("autoprefixer")],
 };
