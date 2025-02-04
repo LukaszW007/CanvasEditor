@@ -1,11 +1,12 @@
 import { useState } from "react";
-import "./App.css";
+// import "./App.css";
+import MainView from "./templates/MainView";
 
 function App() {
 	return (
-		<>
-			<div>Canvas Editor</div>
-		</>
+		<div className="flex justify-center items-center mt-[66px]">
+			<MainView />
+		</div>
 	);
 }
 

@@ -1,0 +1,5 @@
+export enum ACTION_BUTTON_TYPE {
+	TEXT = "TEXT",
+	BACKGROUND = "BACKGROUND",
+	IMAGE = "IMAGE",
+}
