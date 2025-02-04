@@ -7,7 +7,7 @@ module.exports = {
 	theme: {
 		extend: {
 			fontFamily: {
-				poppins: ["Poppins", ...fontFamily.sans],
+				sans: ["Poppins", ...require("tailwindcss/defaultTheme").fontFamily.sans],
 			},
 			colors: {
 				transparent: "transparent",
@@ -26,6 +26,7 @@ module.exports = {
 					98: "#fafafa",
 					97: "#f7f7f8",
 				},
+				red: "red",
 			},
 			fontSize: (theme) => ({
 				button: "15px",
