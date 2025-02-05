@@ -15,8 +15,9 @@ interface IControllAreaProps {
 	addCanvasElement: (element: React.ReactNode, id: string) => void;
 	removeCanvasElement: (id: string) => void;
 	setBackgroundUrl: (url: string) => void;
+	exportToPNG: () => void;
 }
-function ControllArea({ addCanvasElement, removeCanvasElement, setBackgroundUrl }: IControllAreaProps) {
+function ControllArea({ addCanvasElement, removeCanvasElement, setBackgroundUrl, exportToPNG }: IControllAreaProps) {
 	const [isBackgroundSetting, setIsBackgroundSetting] = useState(false);
 	const fileInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -121,7 +122,10 @@ function ControllArea({ addCanvasElement, removeCanvasElement, setBackgroundUrl 
 			</div>
 			{/*Export Buttons */}
 			<div className="w-[759px] flex items-center justify-end mt-8">
-				<Button title="Export to PNG" />
+				<Button
+					title="Export to PNG"
+					onClick={exportToPNG}
+				/>
 			</div>
 
 			<input
