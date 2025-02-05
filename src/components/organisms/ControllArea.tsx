@@ -9,6 +9,7 @@ import Button from "../molecules/buttons/Button";
 import { ACTION_BUTTON_TYPE } from "../../utils/enums";
 import { v4 as uuidv4 } from "uuid";
 import TextArea from "../molecules/TextArea";
+import PictureArea from "../molecules/PictureArea";
 
 interface IControllAreaProps {
 	addCanvasElement: (element: React.ReactNode, id: string) => void;
@@ -16,6 +17,7 @@ interface IControllAreaProps {
 	setBackgroundUrl: (url: string) => void;
 }
 function ControllArea({ addCanvasElement, removeCanvasElement, setBackgroundUrl }: IControllAreaProps) {
+	const [isBackgroundSetting, setIsBackgroundSetting] = useState(false);
 	const fileInputRef = React.useRef<HTMLInputElement>(null);
 
 	const onAddElement = (actionButtonType: ACTION_BUTTON_TYPE) => {
@@ -35,18 +37,19 @@ function ControllArea({ addCanvasElement, removeCanvasElement, setBackgroundUrl 
 		}
 	};
 
-	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		const file = e.target.files?.[0];
-		if (file) {
-			const reader = new FileReader();
-			reader.onloadend = () => {
-				setBackgroundUrl(reader.result as string);
-			};
-			reader.readAsDataURL(file);
-		}
-	};
+	// const handleBackgroundFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	// 	const file = e.target.files?.[0];
+	// 	if (file) {
+	// 		const reader = new FileReader();
+	// 		reader.onloadend = () => {
+	// 			setBackgroundUrl(reader.result as string);
+	// 		};
+	// 		reader.readAsDataURL(file);
+	// 	}
+	// };
 
 	const onAddBackground = (): void => {
+		setIsBackgroundSetting(true);
 		fileInputRef.current?.click();
 	};
 
@@ -62,8 +65,35 @@ function ControllArea({ addCanvasElement, removeCanvasElement, setBackgroundUrl 
 		);
 	};
 
-	const onAddImage = (): void => {};
+	const onAddImage = (): void => {
+		setIsBackgroundSetting(false);
+		fileInputRef.current?.click();
+	};
 
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				if (isBackgroundSetting) {
+					setBackgroundUrl(reader.result as string);
+				} else {
+					const id = uuidv4();
+					const pictureElement = (
+						<PictureArea
+							key={id}
+							id={id}
+							onDelete={() => removeCanvasElement(id)}
+							imageSrc={reader.result as string}
+						/>
+					);
+					addCanvasElement(pictureElement, id);
+				}
+				setIsBackgroundSetting(false);
+			};
+			reader.readAsDataURL(file);
+		}
+	};
 	return (
 		<div className="w-[759px] h-[948px] bg-white flex flex-col items-center justify-center">
 			<Navbar />
