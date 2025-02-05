@@ -1,3 +1,12 @@
+# Canvas Editor Online
+
+Drop your picture, add some text, and export to PNG. 
+Tech-stack:
+- React
+- Typescript
+- Tailwind CSS
+
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
