@@ -5,16 +5,20 @@ import Poster from "../../assets/poster.svg";
 interface ICanvasAreaProps {
 	backgroundUrl: string;
 	canvasElements: { id: string; element: React.ReactNode }[];
-	removeCanvasElement: (id: string) => void;
 }
 
-function CanvasArea({ backgroundUrl, canvasElements, removeCanvasElement }: ICanvasAreaProps) {
+function CanvasArea({ backgroundUrl, canvasElements }: ICanvasAreaProps) {
 	const [isDrawingStarted, setIsDrawingStarted] = useState(false);
 	const [backgroundURL, setBackgroundURL] = useState(backgroundUrl);
 
 	useEffect(() => {
 		if (canvasElements.length > 0) setIsDrawingStarted(true);
 	}, [canvasElements]);
+	useEffect(() => {
+		setBackgroundURL(backgroundUrl);
+		if (backgroundUrl) setIsDrawingStarted(true);
+	}, [backgroundUrl]);
+
 	const poster = (
 		<div className="w-[759px] h-[948px] flex items-center justify-center ">
 			<img
@@ -29,8 +33,14 @@ function CanvasArea({ backgroundUrl, canvasElements, removeCanvasElement }: ICan
 
 	const allElements = canvasElements.map((textArea) => <React.Fragment key={textArea.id}>{textArea.element}</React.Fragment>);
 
-	const canvas = <div className="canvasArea w-[759px] h-[948px] bg-black-50 flex items-center justify-center">{allElements}</div>;
-
+	const canvas = (
+		<div
+			className="canvasArea w-[759px] h-[948px] flex items-center justify-center"
+			style={{ backgroundImage: `url(${backgroundURL})`, backgroundSize: "cover" }}
+		>
+			{allElements}
+		</div>
+	);
 	return isDrawingStarted ? canvas : poster;
 }
 

@@ -19,11 +19,11 @@ function MainView() {
 			<CanvasArea
 				backgroundUrl={backgroundUrl}
 				canvasElements={canvasElements}
-				removeCanvasElement={removeCanvasElement}
 			/>
 			<ControllArea
 				addCanvasElement={addCanvasElement}
 				removeCanvasElement={removeCanvasElement}
+				setBackgroundUrl={setBackgroundUrl}
 			/>
 		</div>
 	);

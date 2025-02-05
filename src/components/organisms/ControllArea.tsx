@@ -13,8 +13,11 @@ import TextArea from "../molecules/TextArea";
 interface IControllAreaProps {
 	addCanvasElement: (element: React.ReactNode, id: string) => void;
 	removeCanvasElement: (id: string) => void;
+	setBackgroundUrl: (url: string) => void;
 }
-function ControllArea({ addCanvasElement, removeCanvasElement }: IControllAreaProps) {
+function ControllArea({ addCanvasElement, removeCanvasElement, setBackgroundUrl }: IControllAreaProps) {
+	const fileInputRef = React.useRef<HTMLInputElement>(null);
+
 	const onAddElement = (actionButtonType: ACTION_BUTTON_TYPE) => {
 		switch (actionButtonType) {
 			case ACTION_BUTTON_TYPE.BACKGROUND: {
@@ -32,7 +35,20 @@ function ControllArea({ addCanvasElement, removeCanvasElement }: IControllAreaPr
 		}
 	};
 
-	const onAddBackground = (): void => {};
+	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		const file = e.target.files?.[0];
+		if (file) {
+			const reader = new FileReader();
+			reader.onloadend = () => {
+				setBackgroundUrl(reader.result as string);
+			};
+			reader.readAsDataURL(file);
+		}
+	};
+
+	const onAddBackground = (): void => {
+		fileInputRef.current?.click();
+	};
 
 	const onAddEditTextArea = (): void => {
 		const id = uuidv4();
@@ -77,6 +93,14 @@ function ControllArea({ addCanvasElement, removeCanvasElement }: IControllAreaPr
 			<div className="w-[759px] flex items-center justify-end mt-8">
 				<Button title="Export to PNG" />
 			</div>
+
+			<input
+				type="file"
+				ref={fileInputRef}
+				style={{ display: "none" }}
+				onChange={handleFileChange}
+				accept="image/*"
+			/>
 		</div>
 	);
 }
