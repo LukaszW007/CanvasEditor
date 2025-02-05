@@ -16,8 +16,9 @@ interface IControllAreaProps {
 	removeCanvasElement: (id: string) => void;
 	setBackgroundUrl: (url: string) => void;
 	exportToPNG: () => void;
+	resetCanvas: () => void;
 }
-function ControllArea({ addCanvasElement, removeCanvasElement, setBackgroundUrl, exportToPNG }: IControllAreaProps) {
+function ControllArea({ addCanvasElement, removeCanvasElement, setBackgroundUrl, exportToPNG, resetCanvas }: IControllAreaProps) {
 	const [isBackgroundSetting, setIsBackgroundSetting] = useState(false);
 	const fileInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -97,7 +98,7 @@ function ControllArea({ addCanvasElement, removeCanvasElement, setBackgroundUrl,
 	};
 	return (
 		<div className="w-[759px] h-[948px] bg-white flex flex-col items-center justify-center">
-			<Navbar />
+			<Navbar resetCanvas={resetCanvas} />
 			<TitleBar />
 			<div className="h-[609px] bg-primary grid grid-cols-2 gap-x-[29px] items-center justify-start gap-y-8 gap-x-[29px] content-start mb-8">
 				{/* Action Buttons */}

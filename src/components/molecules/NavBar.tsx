@@ -2,7 +2,11 @@ import Logo from "../../assets/Logo.svg?react";
 import Reset from "../../assets/Reset.svg?react";
 import ResetButton from "./buttons/ResetButton";
 
-function Navbar() {
+interface NavbarProps {
+	resetCanvas: () => void;
+}
+
+function Navbar({ resetCanvas }: NavbarProps) {
 	return (
 		<div className="rounded-[10px] bg-white-100 h-[64px] w-[759px] flex items-center relative mb-8 justify-between">
 			<div className="flex items-center">
@@ -14,6 +18,7 @@ function Navbar() {
 			<ResetButton
 				Icon={Reset}
 				title="Reset"
+				onClick={resetCanvas}
 			/>
 		</div>
 	);

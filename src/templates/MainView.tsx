@@ -22,6 +22,11 @@ function MainView() {
 		}
 	};
 
+	const resetCanvas = (): void => {
+		setCanvasElements([]);
+		setBackgroundUrl("");
+	};
+
 	return (
 		<div className="overflow-hidden flex flex-row bg-white-100 gap-4 items-center justify-center">
 			<CanvasArea
@@ -34,6 +39,7 @@ function MainView() {
 				removeCanvasElement={removeCanvasElement}
 				setBackgroundUrl={setBackgroundUrl}
 				exportToPNG={exportToPNG}
+				resetCanvas={resetCanvas}
 			/>
 		</div>
 	);
