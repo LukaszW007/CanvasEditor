@@ -6,10 +6,9 @@ import Delete from "../../assets/delete.svg?react";
 interface TextAreaProps {
 	id: string;
 	onDelete: (id: string) => void;
-	onTextChange: (id: string, text: string) => void;
 }
 
-const TextArea: React.FC<TextAreaProps> = ({ id, onDelete, onTextChange }) => {
+const TextArea: React.FC<TextAreaProps> = ({ id, onDelete }) => {
 	const [text, setText] = useState("");
 	const [textAreaPosition, setTextAreaPosition] = useState({ x: 100, y: 100 });
 	const [textAreaSize, setTextAreaSize] = useState({ width: 350, height: 120 });
@@ -20,7 +19,6 @@ const TextArea: React.FC<TextAreaProps> = ({ id, onDelete, onTextChange }) => {
 
 	const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
 		setText(e.target.value);
-		onTextChange(id, e.target.value);
 	};
 
 	const handleClickOutside = (event: MouseEvent) => {

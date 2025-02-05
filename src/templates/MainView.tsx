@@ -7,11 +7,11 @@ function MainView() {
 	const [backgroundUrl, setBackgroundUrl] = useState("");
 
 	const addCanvasElement = (element: React.ReactNode, id: string): void => {
-		setCanvasElements([...canvasElements, { id, element }]);
+		setCanvasElements((prevElements) => [...prevElements, { id, element }]);
 	};
 
 	const removeCanvasElement = (id: string): void => {
-		setCanvasElements(canvasElements.filter((el) => el.id !== id));
+		setCanvasElements((prevElements) => prevElements.filter((el) => el.id !== id));
 	};
 
 	return (
@@ -21,7 +21,10 @@ function MainView() {
 				canvasElements={canvasElements}
 				removeCanvasElement={removeCanvasElement}
 			/>
-			<ControllArea addCanvasElement={addCanvasElement} />
+			<ControllArea
+				addCanvasElement={addCanvasElement}
+				removeCanvasElement={removeCanvasElement}
+			/>
 		</div>
 	);
 }

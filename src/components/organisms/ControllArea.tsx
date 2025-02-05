@@ -12,8 +12,9 @@ import TextArea from "../molecules/TextArea";
 
 interface IControllAreaProps {
 	addCanvasElement: (element: React.ReactNode, id: string) => void;
+	removeCanvasElement: (id: string) => void;
 }
-function ControllArea({ addCanvasElement }: IControllAreaProps) {
+function ControllArea({ addCanvasElement, removeCanvasElement }: IControllAreaProps) {
 	const onAddElement = (actionButtonType: ACTION_BUTTON_TYPE) => {
 		switch (actionButtonType) {
 			case ACTION_BUTTON_TYPE.BACKGROUND: {
@@ -39,22 +40,13 @@ function ControllArea({ addCanvasElement }: IControllAreaProps) {
 			<TextArea
 				key={id}
 				id={id}
-				onDelete={handleDelete}
-				onTextChange={handleTextChange}
+				onDelete={() => removeCanvasElement(id)}
 			/>,
 			id
 		);
 	};
 
 	const onAddImage = (): void => {};
-
-	const handleDelete = (id: string): void => {
-		// No implementation needed here as delete logic is in TextArea
-	};
-
-	const handleTextChange = (id: string, text: string): void => {
-		// Implement text change logic if needed
-	};
 
 	return (
 		<div className="w-[759px] h-[948px] bg-white flex flex-col items-center justify-center">
